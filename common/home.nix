@@ -96,6 +96,8 @@
       set-window-option -g mode-keys vi
       bind-key -T copy-mode-vi 'v' send -X begin-selection
       bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel
+      set -g default-command "$SHELL"
+      set-option -g default-shell $SHELL
       set -g default-terminal "screen-256color"
 
       set -g @catppuccin_flavour 'macchiato'

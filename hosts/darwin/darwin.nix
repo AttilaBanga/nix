@@ -1,17 +1,24 @@
-{self, pkgs, ...}: {
+{
+  self,
+  pkgs,
+  ...
+}: {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
-  # nix.package = pkgs.nix;
+  nix.package = pkgs.nix;
 
   # Set Git commit hash for darwin-version.
   system.configurationRevision = self.rev or self.dirtyRev or null;
 
   # $ darwin-rebuild changelog
   system.stateVersion = 5;
-  users.users.attilabanga.home = "/Users/attilabanga";
+  users.users.attilabanga = {
+    home = "/Users/attilabanga";
+    shell = pkgs.zsh;
+  };
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
