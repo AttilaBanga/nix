@@ -74,6 +74,10 @@
           };
           wsl.wslConf.boot.command = "tmux";
           wsl.startMenuLaunchers = true;
+          virtualisation.docker = {
+            enable = true;
+            enableOnBoot = true;
+          };
         }
         home-manager.nixosModules.home-manager
         {
