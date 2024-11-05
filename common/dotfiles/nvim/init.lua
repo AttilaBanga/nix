@@ -249,7 +249,6 @@ local plugins = {
                         },
                         dap = require('dap').configurations.php[1],
                     }),
-                    require('rustaceanvim.neotest'),
                 },
             })
         end,
