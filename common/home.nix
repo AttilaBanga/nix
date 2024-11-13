@@ -63,6 +63,7 @@
     tailwindcss-language-server
     python3
     python312Packages.python-lsp-server
+    trunk
   ];
 
   programs.zsh = {
