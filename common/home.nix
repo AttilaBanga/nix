@@ -61,6 +61,8 @@
     sass
     tailwindcss
     tailwindcss-language-server
+    python3
+    python312Packages.python-lsp-server
   ];
 
   programs.zsh = {
@@ -152,10 +154,10 @@
     EDITOR = "nvim";
   };
 
-  home.activation.setup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.setup = lib.hm.dag.entryAfter ["writeBoundary"] ''
     ${pkgs.rustup}/bin/rustup component add rust-analyzer
     ${pkgs.rustup}/bin/rustup target add wasm32-unknown-unknown
-    '';
+  '';
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
