@@ -25,6 +25,7 @@
     ripgrep
     cmake
     gcc
+    libiconv
   ];
   programs.zsh = {
     enable = true;
