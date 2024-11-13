@@ -69,10 +69,13 @@ require("lspconfig").rust_analyzer.setup({
             rustfmt = {
                 overrideCommand = { "leptosfmt", "--stdin", "--rustfmt" },
             },
+            runBuildScripts = true,
+            loadOutDirsFromCheck = true,
             cargo = {
                 features = {
-                    "ssr",
-                    "hydrate"
+                    --"ssr",
+                    --"csr",
+                    --"hydrate",
                 },
             },
         },
@@ -99,7 +102,7 @@ require('lspconfig').yamlls.setup {
     }
 }
 
-require 'lspconfig'.bufls.setup { capabilities = capabilities }
+require 'lspconfig'.buf_ls.setup { capabilities = capabilities }
 
 
 require('dap-go').setup()

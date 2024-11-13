@@ -64,6 +64,7 @@
     python3
     python312Packages.python-lsp-server
     trunk
+    cargo-watch
   ];
 
   programs.zsh = {
