@@ -46,7 +46,6 @@
     delve
     protobuf_25
     protoc-gen-go
-    buf-language-server
     lombok
     nodejs
     intelephense
@@ -64,6 +63,7 @@
     python3
     python312Packages.python-lsp-server
     trunk
+    buf
     cargo-watch
   ];
 
