@@ -29,6 +29,7 @@
     darwinConfigurations."mac" = nix-darwin.lib.darwinSystem {
       modules = [
         ./hosts/darwin/darwin.nix
+        ./hosts/darwin/packages.nix
         ./common/packages.nix
         home-manager.darwinModules.home-manager
         {
