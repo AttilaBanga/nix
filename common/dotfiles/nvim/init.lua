@@ -1,13 +1,13 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
 vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
@@ -18,7 +18,7 @@ local plugins = {
     'nvim-tree/nvim-web-devicons',
     'nvim-telescope/telescope-symbols.nvim',
     {
-    'nvim-telescope/telescope.nvim',
+        'nvim-telescope/telescope.nvim',
         tag = '0.1.6',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
@@ -36,21 +36,21 @@ local plugins = {
             {
                 "MattiasMTS/cmp-dbee",
                 dependencies = {
-                    {"kndndrj/nvim-dbee"}
+                    { "kndndrj/nvim-dbee" }
                 },
                 ft = "sql", -- optional but good to have
-                opts = {}, -- needed
+                opts = {},  -- needed
                 config = function()
                     require("cmp-dbee").setup({})
                 end
             },
             "saadparwaiz1/cmp_luasnip",
         },
---        opts = {
---            sources = {
---                { "cmp-dbee" },
---            },
---        },
+        --        opts = {
+        --            sources = {
+        --                { "cmp-dbee" },
+        --            },
+        --        },
         opts = function(_, opts)
             local cmp = require("cmp")
             local luasnip = require("luasnip")
@@ -111,33 +111,33 @@ local plugins = {
         },
     },
     {
-        "nvim-treesitter/nvim-treesitter", 
+        "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        config = function () 
+        config = function()
             local configs = require("nvim-treesitter.configs")
 
             configs.setup({
-                ensure_installed = { "lua", "vimdoc", "query", "javascript", "html" ,"java", "php", "go", "sql"},
+                ensure_installed = { "lua", "vimdoc", "query", "javascript", "html", "java", "php", "go", "sql" },
                 sync_install = true,
                 auto_install = false,
                 highlight = { enable = true },
-                --indent = { enable = true },  
+                --indent = { enable = true },
             })
         end
     },
     {
-	    "L3MON4D3/LuaSnip",
-	    -- follow latest release.
-	    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-	    -- install jsregexp (optional!).
-	    build = "make install_jsregexp",
-        config = function ()
-            require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/snippets"})
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp",
+        config = function()
+            require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
         end,
         keys = {
-            { "<C-j>", "<Plug>luasnip-next-choice", mode = {"i", "s"}},
-            { "<C-k>", "<Plug>luasnip-prev-choice", mode = {"i", "s"}},
-            { "<C-s>", function () require("luasnip.extras.select_choice")() end, mode = {"i", "s"}},
+            { "<C-j>", "<Plug>luasnip-next-choice",                              mode = { "i", "s" } },
+            { "<C-k>", "<Plug>luasnip-prev-choice",                              mode = { "i", "s" } },
+            { "<C-s>", function() require("luasnip.extras.select_choice")() end, mode = { "i", "s" } },
         }
     },
     {
@@ -161,7 +161,7 @@ local plugins = {
                         ["List"] = "select * from {{ .Table }} order by id desc limit 100",
                     },
                 }
-        })
+            })
         end,
     },
     {
@@ -205,11 +205,11 @@ local plugins = {
                             Exception = false,
                             ["*"] = false,
                         },
-                            },
-            --        serverSourceRoot = '/var/www/html',
-            --        localSourceRoot = home .. '/workspace/digiloop/package-points-installer'
-            --        localSourceRoot = home .. '/workspace/digiloop/package-points-backend'
-            --        localSourceRoot = home .. '/workspace/digiloop/invoice-backend'
+                    },
+                    --        serverSourceRoot = '/var/www/html',
+                    --        localSourceRoot = home .. '/workspace/digiloop/package-points-installer'
+                    --        localSourceRoot = home .. '/workspace/digiloop/package-points-backend'
+                    --        localSourceRoot = home .. '/workspace/digiloop/invoice-backend'
                     localSourceRoot = home .. '/PhpstormProjects/syncee-backend'
                 }
             }
@@ -227,13 +227,13 @@ local plugins = {
             require("neotest").setup({
                 -- your neotest config here
                 adapters = {
---                    require("neotest-golang")({
---                        go_test_args = {
---                            "-v",
---                            "-race",
---                        },
---                        dap_go_enabled = true,
---                    }),
+                    --                    require("neotest-golang")({
+                    --                        go_test_args = {
+                    --                            "-v",
+                    --                            "-race",
+                    --                        },
+                    --                        dap_go_enabled = true,
+                    --                    }),
                     require("neotest-go")({
                         experimental = {
                             test_table = true,
@@ -253,20 +253,71 @@ local plugins = {
             })
         end,
         keys = {
-            { "<leader>t",  function() require("neotest").run.run() end,                     mode = { "n" } },
-            { "<leader>tt", function() require("neotest").run.stop() end, desc = "[t]est [t]erminate" },
-            { "<leader>T",  function() require("neotest").run.run(vim.fn.expand("%")) end,   mode = { "n" } },
-            { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end, mode = { "n" } },
-            { "<leader>ts", function() require("neotest").run.stop() end,                    mode = { "n" } },
-            { "<leader>ts", function() require("neotest").summary.toggle() end, desc = "[t]est [s]ummary" },
+            { "<leader>t",  function() require("neotest").run.run() end,                                        mode = { "n" } },
+            { "<leader>tt", function() require("neotest").run.stop() end,                                       desc = "[t]est [t]erminate" },
+            { "<leader>T",  function() require("neotest").run.run(vim.fn.expand("%")) end,                      mode = { "n" } },
+            { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end,                    mode = { "n" } },
+            { "<leader>ts", function() require("neotest").run.stop() end,                                       mode = { "n" } },
+            { "<leader>ts", function() require("neotest").summary.toggle() end,                                 desc = "[t]est [s]ummary" },
             { "<leader>to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "[t]est [o]utput" },
-            { "<leader>tO", function() require("neotest").output_panel.toggle() end, desc = "[t]est [O]utput panel" },
+            { "<leader>tO", function() require("neotest").output_panel.toggle() end,                            desc = "[t]est [O]utput panel" },
         }
-    }
+    },
+    {
+        "nomnivore/ollama.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+
+        -- All the user commands added by the plugin
+        cmd = { "Ollama", "OllamaModel", "OllamaServe", "OllamaServeStop" },
+
+        keys = {
+            -- Sample keybind for prompt menu. Note that the <c-u> is important for selections to work properly.
+            {
+                "<leader>oo",
+                ":<c-u>lua require('ollama').prompt()<cr>",
+                desc = "ollama prompt",
+                mode = { "n", "v" },
+            },
+
+            -- Sample keybind for direct prompting. Note that the <c-u> is important for selections to work properly.
+            {
+                "<leader>oG",
+                ":<c-u>lua require('ollama').prompt('Generate_Code')<cr>",
+                desc = "ollama Generate Code",
+                mode = { "n", "v" },
+            },
+        },
+
+        ---@type Ollama.Config
+        opts = {
+            model = "mistral:instruct",
+            url = "http://127.0.0.1:11434",
+            serve = {
+                on_start = false,
+                command = "ollama",
+                args = { "serve" },
+                stop_command = "pkill",
+                stop_args = { "-SIGTERM", "ollama" },
+            },
+            prompts = {
+                Do_With_Input = {
+                    prompt = "$input ```$sel```",
+                    input_label = "> ",
+                    action = "display",
+                },
+            }
+        },
+    },
+    {
+        'stevearc/dressing.nvim',
+        opts = {},
+    },
 }
 
 local opts = {
-	lockfile = os.getenv("LAZY_LOCK")
+    lockfile = os.getenv("LAZY_LOCK")
 }
 
 require("lazy").setup(plugins, opts)
