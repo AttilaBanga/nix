@@ -133,6 +133,7 @@
     # ".screenrc".source = dotfiles/screenrc;
     # ".zshrc".source = dotfiles/.zshrc;
     ".config/alacritty/alacritty.toml".source = dotfiles/alacritty.toml;
+    ".config/aerospace/aerospace.toml".source = dotfiles/aerospace.toml;
     ".config/nvim".source = dotfiles/nvim;
     ".config/alacritty/catppuccin-macchiato.toml".source = dotfiles/catppuccin-macchiato.toml;
 

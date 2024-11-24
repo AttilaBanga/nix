@@ -21,8 +21,8 @@ bold_italic.style = "Bold Italic"
 
 [window]
 opacity = 0.75
-decorations = "ButtonLess"
-startup_mode = "SimpleFullscreen"
+#decorations = "ButtonLess"
+#startup_mode = "SimpleFullscreen"
 
 [general]
 import = [

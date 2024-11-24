@@ -2,29 +2,19 @@
   self,
   pkgs,
   config,
+  lib,
   ...
 }: {
   environment.systemPackages = with pkgs; [
     aerospace
     mkalias
   ];
-  system.activationScripts.applications.text = let
-    env = pkgs.buildEnv {
-      name = "system-applications";
-      paths = config.environment.systemPackages;
-      pathsToLink = "/Applications";
-    };
-  in
-    pkgs.lib.mkForce ''
-      # Set up applications.
-      echo "setting up /Applications..." >&2
-      rm -rf /Applications/Nix\ Apps
-      mkdir -p /Applications/Nix\ Apps
-      find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
-      while read -r src; do
-        app_name=$(basename "$src")
-        echo "copying $src" >&2
-        ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
-      done
-    '';
+  system.activationScripts.postUserActivation.text = ''
+    apps_source="${config.system.build.applications}/Applications"
+    moniker="Nix Trampolines"
+    app_target_base="$HOME/Applications"
+    app_target="$app_target_base/$moniker"
+    mkdir -p "$app_target"
+    ${pkgs.rsync}/bin/rsync --archive --checksum --chmod=-w --copy-unsafe-links --delete "$apps_source/" "$app_target"
+  '';
 }
