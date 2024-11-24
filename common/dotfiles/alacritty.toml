@@ -1,8 +1,5 @@
-import = [
-  #"~/.config/alacritty/catppuccin-macchiato.toml"
-]
 
-[shell]
+[terminal.shell]
 program = "zsh"
 args = ["-l", "-c", "tmux attach || tmux"]
 
@@ -26,3 +23,10 @@ bold_italic.style = "Bold Italic"
 opacity = 0.75
 decorations = "ButtonLess"
 startup_mode = "SimpleFullscreen"
+
+[general]
+import = [
+  #"~/.config/alacritty/catppuccin-macchiato.toml"
+]
+
+[terminal]
