@@ -29,3 +29,8 @@ import = [
 ]
 
 [terminal]
+
+[keyboard]
+bindings = [
+    { key = "Space", mods = "Shift", action = "ToggleViMode" },
+]
