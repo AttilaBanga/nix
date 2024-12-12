@@ -14,6 +14,7 @@ vim.g.mapleader = " "
 local home = os.getenv("HOME")
 
 local plugins = {
+    'github/copilot.vim',
     'mfussenegger/nvim-jdtls',
     'nvim-tree/nvim-web-devicons',
     'nvim-telescope/telescope-symbols.nvim',

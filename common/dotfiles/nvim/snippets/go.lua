@@ -29,7 +29,7 @@ return {
 
             import (
                	"gorm.io/gorm"
-                "{module_name}/db/models"
+                "{module_name}/models"
             )
 
             type {object_name} interface {{
@@ -60,7 +60,7 @@ return {
             package {package_name}
 
             import (
-                "{module_name}/db/repositories"
+                "{module_name}/repositories"
             )
 
             type {object_name} interface {{
