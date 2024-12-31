@@ -23,6 +23,13 @@
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
 
+  system.defaults.NSGlobalDomain = {
+    _HIHideMenuBar = false;
+  };
+  system.defaults.dock = {
+    autohide = true;
+  };
+
   security.pam.enableSudoTouchIdAuth = true;
   environment = {
     etc."pam.d/sudo_local".text = ''
