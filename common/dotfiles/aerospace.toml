@@ -233,5 +233,9 @@ if.app-id = 'com.jetbrains.datagrip'
 run = 'move-node-to-workspace D'
 
 [[on-window-detected]]
+if.app-id = 'ai.perplexity.mac'
+run = 'move-node-to-workspace E'
+
+[[on-window-detected]]
 if.app-id = 'com.postmanlabs.mac'
 run = 'move-node-to-workspace R'
