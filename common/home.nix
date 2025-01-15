@@ -162,8 +162,6 @@
   home.activation.setup = lib.hm.dag.entryAfter ["writeBoundary"] ''
     ${pkgs.rustup}/bin/rustup component add rust-analyzer
     ${pkgs.rustup}/bin/rustup target add wasm32-unknown-unknown
-    ${pkgs.github-cli}/bin/gh extension install github/gh-copilot || echo 'gh-copilot installed'
-    ${pkgs.github-cli}/bin/gh extension upgrade gh-copilot
   '';
 
   # Let Home Manager install and manage itself.
