@@ -30,6 +30,12 @@
     autohide = true;
   };
 
+  homebrew = {
+    enable = true;
+    #taps = [ "homebrew/cask" ];
+    casks = [ "docker" ];
+  };
+
   security.pam.enableSudoTouchIdAuth = true;
   environment = {
     etc."pam.d/sudo_local".text = ''

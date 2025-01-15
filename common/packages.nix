@@ -19,7 +19,6 @@
     curl
     google-chrome
     tmux
-    docker
     fzf
     watch
     ripgrep
