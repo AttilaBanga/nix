@@ -60,7 +60,7 @@
     sass
     tailwindcss
     tailwindcss-language-server
-    python3
+    (python3.withPackages (p: with p; [ pip virtualenv pandas requests tqdm tabview ]))
     python312Packages.python-lsp-server
     trunk
     buf
