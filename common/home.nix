@@ -60,7 +60,7 @@
     sass
     tailwindcss
     tailwindcss-language-server
-    (python3.withPackages (p: with p; [ pip virtualenv pandas requests tqdm tabview ]))
+    (python3.withPackages (p: with p; [pip virtualenv pandas requests tqdm tabview]))
     python312Packages.python-lsp-server
     trunk
     buf
@@ -88,6 +88,7 @@
       export LOMBOK_JAR="${pkgs.lombok}/share/java/lombok.jar"
       export LIBRARY_PATH=$LIBRARY_PATH:${pkgs.libiconv}/lib
       export GOOGLE_APPLICATION_CREDENTIALS="/Users/attilabanga/PhpstormProjects/keys/storage-key.json"
+      
     '';
   };
   programs.starship = {

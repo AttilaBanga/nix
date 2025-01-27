@@ -30,11 +30,27 @@
     autohide = true;
   };
 
-#  homebrew = {
-#    enable = true;
-#    #taps = [ "homebrew/cask" ];
-#    casks = [ "docker" ];
-#  };
+  homebrew = {
+    enable = true;
+    #taps = [ "homebrew/cask" ];
+    casks = [];
+  };
+
+  programs.zsh = {
+    enable = true;
+    shellInit = ''
+      bindkey -s -M vicmd ' ss' 'igcssh\n'
+      bindkey -s -M vicmd ' bl' 'ibuild_logs\n'
+      bindkey -s -M vicmd ' bs' 'ibuild_stop\n'
+      bindkey -s -M vicmd ' bw' 'iwatch_builds\n'
+      bindkey -s -M vicmd ' sp' 'ipickupbirdssh\n'
+      bindkey -s -M vicmd ' sd' 'idigiloopssh\n'
+    '';
+  };
+
+  environment.extraInit = ''
+    export PATH="$PATH:/Applications/smcFanControl.app/Contents/Resources"
+  '';
 
   security.pam.enableSudoTouchIdAuth = true;
   environment = {
