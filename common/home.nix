@@ -66,6 +66,7 @@
     buf
     cargo-watch
     github-cli
+    #android-studio
   ];
 
   programs.zsh = {
@@ -88,7 +89,7 @@
       export LOMBOK_JAR="${pkgs.lombok}/share/java/lombok.jar"
       export LIBRARY_PATH=$LIBRARY_PATH:${pkgs.libiconv}/lib
       export GOOGLE_APPLICATION_CREDENTIALS="/Users/attilabanga/PhpstormProjects/keys/storage-key.json"
-      
+
     '';
   };
   programs.starship = {
@@ -160,10 +161,13 @@
     EDITOR = "nvim";
   };
 
-  home.activation.setup = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    ${pkgs.rustup}/bin/rustup component add rust-analyzer
-    ${pkgs.rustup}/bin/rustup target add wasm32-unknown-unknown
-  '';
+  home.activation = {
+    setup = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      ${pkgs.rustup}/bin/rustup component add rust-analyzer
+      ${pkgs.rustup}/bin/rustup target add wasm32-unknown-unknown
+      ${pkgs.rustup}/bin/rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
+    '';
+  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

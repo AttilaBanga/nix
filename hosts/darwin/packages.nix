@@ -9,6 +9,7 @@
     aerospace
     mkalias
     kafkactl
+    cocoapods
   ];
   # system.activationScripts.postUserActivation.text = ''
   #   apps_source="${config.system.build.applications}/Applications"
