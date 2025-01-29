@@ -60,13 +60,31 @@
     sass
     tailwindcss
     tailwindcss-language-server
-    (python3.withPackages (p: with p; [pip virtualenv pandas requests tqdm tabview]))
+    (python3.withPackages (p: with p; [
+        pip
+        virtualenv
+        pandas
+        requests
+        tqdm
+        tabview
+        transformers
+        torch
+        diffusers
+        transformers
+        accelerate
+        safetensors
+        sentencepiece
+        huggingface-hub
+    ]))
     python312Packages.python-lsp-server
     trunk
     buf
     cargo-watch
     github-cli
+    libimobiledevice
     #android-studio
+    flutter
+    grpcurl
   ];
 
   programs.zsh = {

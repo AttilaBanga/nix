@@ -10,6 +10,7 @@
     mkalias
     kafkactl
     cocoapods
+    xcodegen
   ];
   # system.activationScripts.postUserActivation.text = ''
   #   apps_source="${config.system.build.applications}/Applications"

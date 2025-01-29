@@ -50,6 +50,7 @@
 
   environment.extraInit = ''
     export PATH="$PATH:/Applications/smcFanControl.app/Contents/Resources"
+    export PATH="$PATH:/opt/homebrew/bin"
   '';
 
   security.pam.enableSudoTouchIdAuth = true;

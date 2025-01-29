@@ -141,6 +141,8 @@ require 'lspconfig'.lua_ls.setup {
     }
 }
 
+require'lspconfig'.dartls.setup{}
+
 --dap.configurations.php = {
 --    {
 --        type = 'php',
