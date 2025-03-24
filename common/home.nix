@@ -85,6 +85,9 @@
     #android-studio
     flutter
     grpcurl
+    wrk
+    async-profiler
+    prometheus
   ];
 
   programs.zsh = {
@@ -107,6 +110,7 @@
       export LOMBOK_JAR="${pkgs.lombok}/share/java/lombok.jar"
       export LIBRARY_PATH=$LIBRARY_PATH:${pkgs.libiconv}/lib
       export GOOGLE_APPLICATION_CREDENTIALS="/Users/attilabanga/PhpstormProjects/keys/storage-key.json"
+      export DYLD_LIBRARY_PATH=${pkgs.async-profiler}/lib
 
     '';
   };

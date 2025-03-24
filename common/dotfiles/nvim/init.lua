@@ -22,7 +22,6 @@ local plugins = {
         tag = '0.1.6',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
-    'mfussenegger/nvim-dap',
     'neovim/nvim-lspconfig',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
@@ -30,6 +29,19 @@ local plugins = {
     'hrsh7th/cmp-cmdline',
     'saadparwaiz1/cmp_luasnip',
     'leoluz/nvim-dap-go',
+    { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+    'theHamsta/nvim-dap-virtual-text',
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        },
+    },
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
@@ -54,6 +66,24 @@ local plugins = {
         opts = function(_, opts)
             local cmp = require("cmp")
             local luasnip = require("luasnip")
+            require("nvim-dap-virtual-text").setup()
+            require("lazydev").setup({
+                library = { "nvim-dap-ui" },
+            })
+            require("dapui").setup()
+            local dap, dapui = require("dap"), require("dapui")
+            dap.listeners.before.attach.dapui_config = function()
+                dapui.open()
+            end
+            dap.listeners.before.launch.dapui_config = function()
+                dapui.open()
+            end
+            dap.listeners.before.event_terminated.dapui_config = function()
+                dapui.close()
+            end
+            dap.listeners.before.event_exited.dapui_config = function()
+                dapui.close()
+            end
             -- require("luasnip.loaders.from_vscode").lazy_load()
             opts.snippet = {
                 expand = function(args)
@@ -103,7 +133,7 @@ local plugins = {
             })
         end,
     },
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    { "catppuccin/nvim",      name = "catppuccin",                                                priority = 1000 },
     {
         "kdheepak/lazygit.nvim",
         requires = {
@@ -171,8 +201,8 @@ local plugins = {
             "nvim-lua/plenary.nvim",
             "antoinemadec/FixCursorHold.nvim",
             "nvim-treesitter/nvim-treesitter",
-            "nvim-neotest/neotest-go",
-            --"fredrikaverpil/neotest-golang",
+            --"nvim-neotest/neotest-go",
+            "fredrikaverpil/neotest-golang",
             "rcasia/neotest-java",
             "olimorris/neotest-phpunit",
         },
@@ -227,19 +257,20 @@ local plugins = {
             require("neotest").setup({
                 -- your neotest config here
                 adapters = {
-                    --                    require("neotest-golang")({
-                    --                        go_test_args = {
-                    --                            "-v",
-                    --                            "-race",
-                    --                        },
-                    --                        dap_go_enabled = true,
-                    --                    }),
-                    require("neotest-go")({
-                        experimental = {
-                            test_table = true,
+                    require("neotest-golang")({
+                        go_test_args = {
+                            "-v",
+                            "-race",
+                            "-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out",
                         },
-                        args = { "-v", "-race", "-timeout=60s" }
+                        dap_go_enabled = true,
                     }),
+                    --require("neotest-golang")({
+                    --   experimental = {
+                    --      test_table = true,
+                    -- },
+                    --args = { "-v", "-race", "-timeout=60s" }
+                    --),
                     require("neotest-java")({
                         ignore_wrapper = true,
                     }),
@@ -313,6 +344,18 @@ local plugins = {
     {
         'stevearc/dressing.nvim',
         opts = {},
+    },
+    {
+        "andythigpen/nvim-coverage",
+        version = "*",
+        config = function()
+            require("coverage").setup({
+                auto_reload = true,
+                summary = {
+                    min_coverage = 80.0,
+                },
+            })
+        end,
     },
 }
 

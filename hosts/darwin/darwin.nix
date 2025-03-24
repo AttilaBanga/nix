@@ -5,9 +5,6 @@
 }: {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
   nix.package = pkgs.nix;
 
   # Set Git commit hash for darwin-version.
@@ -45,6 +42,7 @@
       bindkey -s -M vicmd ' bw' 'iwatch_builds\n'
       bindkey -s -M vicmd ' sp' 'ipickupbirdssh\n'
       bindkey -s -M vicmd ' sd' 'idigiloopssh\n'
+      bindkey -s -M vicmd ' ws' 'ils ~/workspace/syncee | fzf | cd\n'
     '';
   };
 
@@ -53,12 +51,30 @@
     export PATH="$PATH:/opt/homebrew/bin"
   '';
 
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
   environment = {
     etc."pam.d/sudo_local".text = ''
       # Managed by Nix Darwin
       auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so ignore_ssh
       auth       sufficient     pam_tid.so
     '';
+  };
+
+launchd.daemons.prometheus = {
+    serviceConfig = {
+      ProgramArguments = [
+        "${pkgs.prometheus}/bin/prometheus"
+        "--config.file=${pkgs.writeText "prometheus.yml" (builtins.toJSON {
+          global = { scrape_interval = "15s"; };
+          scrape_configs = [{
+            job_name = "prometheus";
+            static_configs = [{ targets = ["localhost:9090"]; }];
+          }];
+        })}"
+        "--storage.tsdb.path=/var/lib/prometheus"
+      ];
+      RunAtLoad = true;
+      KeepAlive = true;
+    };
   };
 }
