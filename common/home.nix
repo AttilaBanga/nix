@@ -88,6 +88,7 @@
     wrk
     async-profiler
     prometheus
+    stylua
   ];
 
   programs.zsh = {

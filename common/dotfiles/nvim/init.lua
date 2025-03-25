@@ -12,6 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 local home = os.getenv("HOME")
+--vim.g.neotest_log_level = vim.log.levels.DEBUG
 
 local plugins = {
     'mfussenegger/nvim-jdtls',
@@ -205,6 +206,7 @@ local plugins = {
             "fredrikaverpil/neotest-golang",
             "rcasia/neotest-java",
             "olimorris/neotest-phpunit",
+            "nvim-neotest/neotest-plenary",
         },
         config = function()
             require('dap').adapters.php = {
@@ -248,8 +250,11 @@ local plugins = {
             vim.diagnostic.config({
                 virtual_text = {
                     format = function(diagnostic)
-                        local message =
-                            diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+                        if not diagnostic.message or diagnostic.message == "" then
+                            return "Test failed (no detailed message available)"
+                        end
+                        local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+",
+                            "")
                         return message
                     end,
                 },
@@ -257,6 +262,7 @@ local plugins = {
             require("neotest").setup({
                 -- your neotest config here
                 adapters = {
+                    require("neotest-plenary"),
                     require("neotest-golang")({
                         go_test_args = {
                             "-v",
@@ -265,14 +271,12 @@ local plugins = {
                         },
                         dap_go_enabled = true,
                     }),
-                    --require("neotest-golang")({
-                    --   experimental = {
-                    --      test_table = true,
-                    -- },
-                    --args = { "-v", "-race", "-timeout=60s" }
-                    --),
                     require("neotest-java")({
                         ignore_wrapper = true,
+                        incremental_build = true,
+                        classpath = {
+                            exclude_source_paths = true,
+                        }
                     }),
                     require("neotest-phpunit")({
                         env = {
@@ -280,6 +284,18 @@ local plugins = {
                         },
                         dap = require('dap').configurations.php[1],
                     }),
+                },
+                status = { enabled = true, virtual_text = true, signs = false, },
+                output = { enabled = true, open_on_run = true },
+                quickfix = {
+                    enabled = true,
+                    open = function()
+                        require("trouble").open({ mode = "quickfix", focus = false })
+                    end,
+                },
+                diagnostic = {
+                    enabled = true,
+                    severity = vim.diagnostic.severity.ERROR
                 },
             })
         end,
@@ -357,6 +373,7 @@ local plugins = {
             })
         end,
     },
+    'folke/trouble.nvim',
 }
 
 local opts = {
