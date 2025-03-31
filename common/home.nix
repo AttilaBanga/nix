@@ -89,7 +89,6 @@
     async-profiler
     prometheus
     stylua
-    direnv
   ];
 
   programs.zsh = {
