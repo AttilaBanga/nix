@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 local home = os.getenv("HOME")
 --vim.g.neotest_log_level = vim.log.levels.DEBUG
+--
 
 local plugins = {
     'mfussenegger/nvim-jdtls',
@@ -250,12 +251,9 @@ local plugins = {
             vim.diagnostic.config({
                 virtual_text = {
                     format = function(diagnostic)
-                        if not diagnostic.message or diagnostic.message == "" then
-                            return "Test failed (no detailed message available)"
-                        end
                         local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+",
                             "")
-                        return message
+                        return message ~= "" and message or nil
                     end,
                 },
             }, neotest_ns)
@@ -300,14 +298,22 @@ local plugins = {
             })
         end,
         keys = {
-            { "<leader>t",  function() require("neotest").run.run() end,                                        mode = { "n" } },
-            { "<leader>tt", function() require("neotest").run.stop() end,                                       desc = "[t]est [t]erminate" },
-            { "<leader>T",  function() require("neotest").run.run(vim.fn.expand("%")) end,                      mode = { "n" } },
-            { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end,                    mode = { "n" } },
-            { "<leader>ts", function() require("neotest").run.stop() end,                                       mode = { "n" } },
-            { "<leader>ts", function() require("neotest").summary.toggle() end,                                 desc = "[t]est [s]ummary" },
-            { "<leader>to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "[t]est [o]utput" },
-            { "<leader>tO", function() require("neotest").output_panel.toggle() end,                            desc = "[t]est [O]utput panel" },
+            { "<leader>t",  function() require("neotest").run.run() end,                     mode = { "n" } },
+            { "<leader>tt", function() require("neotest").run.stop() end,                    desc = "[t]est [t]erminate" },
+            { "<leader>T",  function() require("neotest").run.run(vim.fn.expand("%")) end,   mode = { "n" } },
+            { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end, mode = { "n" } },
+            { "<leader>ts", function() require("neotest").run.stop() end,                    mode = { "n" } },
+            { "<leader>ts", function() require("neotest").summary.toggle() end,              desc = "[t]est [s]ummary" },
+            {
+                "<leader>to",
+                function()
+                    require("neotest").output.open({
+                        enter = true,
+                    })
+                end,
+                desc = "[t]est [o]utput"
+            },
+            { "<leader>tO", function() require("neotest").output_panel.toggle() end, desc = "[t]est [O]utput panel" },
         }
     },
     {
