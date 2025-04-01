@@ -71,12 +71,11 @@
         torch
         diffusers
         transformers
-        accelerate
         safetensors
         sentencepiece
         huggingface-hub
     ]))
-    python312Packages.python-lsp-server
+    python3Packages.python-lsp-server
     trunk
     buf
     cargo-watch
