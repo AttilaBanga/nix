@@ -13,6 +13,7 @@
     xcodegen
     darwin.apple_sdk.frameworks.CoreFoundation
     darwin.apple_sdk.frameworks.CoreServices
+    ollama
   ];
   # system.activationScripts.postUserActivation.text = ''
   #   apps_source="${config.system.build.applications}/Applications"
