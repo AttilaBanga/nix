@@ -13,7 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 local home = os.getenv("HOME")
 --vim.g.neotest_log_level = vim.log.levels.DEBUG
---
 
 local plugins = {
     'mfussenegger/nvim-jdtls',
