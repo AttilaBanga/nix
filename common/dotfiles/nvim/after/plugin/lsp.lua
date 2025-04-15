@@ -102,7 +102,7 @@ require('lspconfig').yamlls.setup {
     }
 }
 
-require 'lspconfig'.buf_ls.setup { capabilities = capabilities }
+require 'lspconfig'.bufls.setup { capabilities = capabilities }
 
 
 require('dap-go').setup()
