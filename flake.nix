@@ -35,7 +35,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.attilabanga = import ./common/home.nix;
+          home-manager.users.attilabanga = import ./common/attilabanga.nix;
           home-manager.backupFileExtension = "backup";
         }
       ];
@@ -53,7 +53,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.azridum = import ./common/home.nix;
+          home-manager.users.azridum = import ./common/azridum.nix;
           home-manager.backupFileExtension = "backup";
         }
       ];

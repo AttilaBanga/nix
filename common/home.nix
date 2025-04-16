@@ -44,14 +44,11 @@
     rustc
     lazygit
     delve
-    protobuf_25
-    protoc-gen-go
     lombok
     nodejs
     intelephense
     nixd
     yaml-language-server
-    kitty
     lua-language-server
     leptosfmt
     cargo-leptos
@@ -98,8 +95,6 @@
     shellAliases = {
       vim = "nvim";
       vi = "nvim";
-      sail = "[ -f sail ] && sh sail || sh vendor/bin/sail";
-      watch_builds = "watch -n 5 builds --limit 5";
     };
     initExtra = ''
       set -o vi
@@ -117,37 +112,6 @@
   programs.starship = {
     enable = true;
   };
-  programs.tmux = {
-    enable = true;
-    plugins = [
-      pkgs.tmuxPlugins.catppuccin
-    ];
-    extraConfig = ''
-      set-window-option -g mode-keys vi
-      bind-key -T copy-mode-vi 'v' send -X begin-selection
-      bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel
-      set -g default-command "$SHELL"
-      set-option -g default-shell $SHELL
-      set -g default-terminal "screen-256color"
-
-      set -g @catppuccin_flavour 'macchiato'
-
-      set -g @catppuccin_window_left_separator ""
-      set -g @catppuccin_window_right_separator " "
-      set -g @catppuccin_window_middle_separator " █"
-      set -g @catppuccin_window_number_position "right"
-
-      set -g @catppuccin_status_modules_right "application"
-      set -g @catppuccin_status_left_separator  " "
-      set -g @catppuccin_status_right_separator ""
-      set -g @catppuccin_status_right_separator_inverse "no"
-      set -g @catppuccin_status_fill "icon"
-      set -g @catppuccin_status_connect_separator "no"
-
-      set -g @catppuccin_directory_text "#{pane_current_path}"
-      run-shell ${pkgs.tmuxPlugins.catppuccin}/share/tmux-plugins/catppuccin/catppuccin.tmux
-    '';
-  };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -158,7 +122,6 @@
     # ".screenrc".source = dotfiles/screenrc;
     # ".zshrc".source = dotfiles/.zshrc;
     ".config/alacritty/alacritty.toml".source = dotfiles/alacritty.toml;
-    ".config/aerospace/aerospace.toml".source = dotfiles/aerospace.toml;
     ".config/nvim".source = dotfiles/nvim;
     ".config/alacritty/catppuccin-macchiato.toml".source = dotfiles/catppuccin-macchiato.toml;
 
