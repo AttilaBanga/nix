@@ -185,6 +185,7 @@
 
   home.activation = {
     setup = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      ${pkgs.rustup}/bin/rustup default stable
       ${pkgs.rustup}/bin/rustup component add rust-analyzer
       ${pkgs.rustup}/bin/rustup target add wasm32-unknown-unknown
       ${pkgs.rustup}/bin/rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim

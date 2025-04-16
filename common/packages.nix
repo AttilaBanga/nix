@@ -27,6 +27,7 @@
     libiconv
     libwebp
     pkg-config
+    cmake
   ];
   programs.zsh = {
     enable = true;
