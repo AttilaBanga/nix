@@ -10,6 +10,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    waybar
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -21,6 +22,8 @@
     # ".screenrc".source = dotfiles/screenrc;
     # ".zshrc".source = dotfiles/.zshrc;
     ".config/hypr/hyprland.conf".source = dotfiles/hyprland.conf;
+    ".config/waybar/config.jsonc".source = dotfiles/config.jsonc;
+    ".config/waybar/style.css".source = dotfiles/style.css;
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
