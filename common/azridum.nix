@@ -11,6 +11,7 @@
   # environment.
   home.packages = with pkgs; [
     waybar
+    tofi
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -24,6 +25,7 @@
     ".config/hypr/hyprland.conf".source = dotfiles/hyprland.conf;
     ".config/waybar/config.jsonc".source = dotfiles/config.jsonc;
     ".config/waybar/style.css".source = dotfiles/style.css;
+    ".config/tofi/config".source = dotfiles/tofi.conf;
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
