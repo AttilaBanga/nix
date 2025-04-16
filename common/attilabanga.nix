@@ -43,9 +43,4 @@
     # '';
   };
 
-  home.activation = {
-    setup = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    '';
-  };
-
 }
